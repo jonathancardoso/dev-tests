@@ -11,4 +11,4 @@ Uma produtora de ostra da Grande Florianópolis deseja melhorar o processo de cr
 3. Quais as tecnologias utilizadas na solução idealizada? Por que utilizou essa tecnologia?
 
 ## Solução
-Para visualizar a solução [clique aqui](/SOLUTION.md)
+Para visualizar a solução [clique aqui](https://github.com/jonathancardoso/dev-tests/blob/master/test001/SOLUTION.md)
