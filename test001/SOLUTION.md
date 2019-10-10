@@ -84,6 +84,9 @@ __Descrição__:
 
 *: Diversas estratégias podem ser adotadas, como timestamps sobre o protocolo HTTP, ou até mesmo um FTP, etc. Para que ao verificar uma mudança ele baixe o novo arquivo. 
 
-3. __Tecnologias e motivação__
-R: Possivelmente para esta solução adotaria uma linguaguem dinamicamente tipada como Python, pois a curva de desenvolvimento seria rápida.  
-Para as consultas  utilizaria um banco de dados relacional PostgreSQL visto que o domínio do problema não implica em soluções Big Data, ainda observando que o fato da temperatura é um dado vital (>31°C) e implicaria em um grande prejuizo, as propriedades ACID são necessárias.  
+3. __Tecnologias e Motivação__  
+__R:__ Possivelmente para esta solução adotaria uma linguaguem dinamicamente tipada como Python, pois a curva de desenvolvimento seria rápida e um código de fácil manutenção/leitura.  
+Como storage. utilizaria um banco de dados relacional (PostgreSQL) visto que o domínio do problema não implica em soluções Big Data. Ainda observando que o fato da temperatura é um dado vital (>31°C) e implicaria em um grande prejuizo, sendo assim, as propriedades ACID evitaria possíveis dados perdidos. 
+
+4. __Ferramentas utilizadas__
+Para desenvolvimento deste documento foi utilizado o editor de textos __Pluma__, para os modelos conceituais e lógicos foi utilizado a ferramenta __brMoelo__, para o diagrama de fluxo do programa foi utilizado o website __draw.io__.
