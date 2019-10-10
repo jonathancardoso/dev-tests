@@ -69,13 +69,20 @@ def historico(idFazenda, nome, data, temperatura, localidade, idPessoa)
     if temperatura is not None: query + " and b.temperatura = "+ temperatura
     if localidade is not None: query + " and a.localidade = "+ localidade
     if idPessoa is not None: query + " and c.CPF = "+ idPessoa
-    print getBD(query)
+    return getBD(query)
 ```
 
 2. __Diagramas de fluxo da aplicação__
 ![Diagram de Fluxo do programa](images/Diagrama-Fluxo.png)
+__Definições__: Retangulos arredondados são entindades do programa, retangulos são funções do sistema.  
+__Descrição__: 
+1. Espera-se que tenha um dispositivo IoT capaz de enviar os 3 parametos _(data,temperatura e idFazenda)_ para a função __recebeAlertas__.
+1. A função __recebeAlertas__ chama a função __insertDB__ passando os parametros que recebeu para que a função __insertDB__ traduza os parametros em uma query que possa ser executada pelo BD em __getBD__. Que retorna a execução da query no BD. Ainda a função __recebeAlertas__ é responsanvél por fazer uma análise do dado, notificando o proprietário da fazenda __(sendAlert)__ caso apresente alguma anomalia ou publicando o alerta diretamente caso nenhuma anomalia foi encontrada __(publish)__.
+1. A função __sendAlert__ é responsavel por localizar o proprietário e executando a query através da função __(getBD)__ e notificar o usuário via SMS, logo apos publicando o alerta.
+1. Partimos do pressuposto que um subscriber está executando a função __monitora__ passando como parametro o idFazenda (identificador da fazenda) e uma data da ultima medição computada (last). A função obtem o arquivo  para que ao ter uma modificação no arquivo ele verifique a ultima atualização (ultima linha), verifique se é sobre o idFazenda interessado e verifique com o atual registro que ele possui (last).*
+1. A produtora pode consultar e filtrar os resultados através da função __historico__. A função recebe como parametros todos os filtros que ela possa querer utilizar. A execução é simples, basta informar os campos como parametro para a função que se deseja verificar, a função monta a query para executar no banco de dados __(getBD)__ e retorna os resultados para a produtora. O resultado pode ser salvo em um arquivo, exibido no terminal ou passado como object para uma função do FrontEnd.
 
-
+*: Diversas estratégias podem ser adotadas, como timestamps sobre o protocolo HTTP, ou até mesmo um FTP, etc. Para que ao verificar uma mudança ele baixe o novo arquivo. 
 
 3. __Tecnologias e motivação__
 R: Possivelmente para esta solução adotaria uma linguaguem dinamicamente tipada como Python, pois a curva de desenvolvimento seria rápida.  
