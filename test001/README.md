@@ -9,3 +9,6 @@ Uma produtora de ostra da Grande Florianópolis deseja melhorar o processo de cr
 1. Diante do exposto, apresente um pseudocódigo que descreve a implementação do serviço de backend para essa solução. (30 linhas)
 2. Apresente um diagrama da solução idealizada.
 3. Quais as tecnologias utilizadas na solução idealizada? Por que utilizou essa tecnologia?
+
+## Solução
+Para visualizar a solução [clique aqui](/SOLUTION.md)
