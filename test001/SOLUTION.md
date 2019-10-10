@@ -53,7 +53,7 @@ def sendAlert(string, idFazenda):
 
 # Publica o alerta em um arquivo monitorado.
 def publish(idFazenda, string):
-    os.system('echo idFazenda+" "+string >> file')
+    os.system('echo '+idFazenda+' '+string+' >> file')
 
 # Monitora o arquivo.
 def monitora(idFazenda, last):
@@ -65,12 +65,12 @@ def monitora(idFazenda, last):
 # Acessa a tabela historico e retorna os dados conforme o filtro aplicado.
 def historico(idFazenda, nome, data, temperatura, localidade, idPessoa)
     query = "SELECT a.nome,a.localidade,b.data,b.temperatura,c.idPessoa FROM Fazenda as a, Historico as b, Pessoa as c WHERE a.id = b.idFazenda and a.idPessoa = c.CPF"
-    if idFazenda is not None: query + " and a.idFazenda = "+ idFazenda
-    if nome is not None: query + " and a.nome = "+ nome
-    if data is not None: query + " and b.data = "+ data
-    if temperatura is not None: query + " and b.temperatura = "+ temperatura
-    if localidade is not None: query + " and a.localidade = "+ localidade
-    if idPessoa is not None: query + " and c.CPF = "+ idPessoa
+    if idFazenda is not None: query = query + " and a.idFazenda = "+ idFazenda
+    if nome is not None: query = query + " and a.nome = "+ nome
+    if data is not None: query = query + " and b.data = "+ data
+    if temperatura is not None: query = query + " and b.temperatura = "+ temperatura
+    if localidade is not None: query = query + " and a.localidade = "+ localidade
+    if idPessoa is not None: query = query + " and c.CPF = "+ idPessoa
     return getBD(query)
 ```
 
