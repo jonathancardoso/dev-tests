@@ -2,19 +2,21 @@
 
 
 ## Etapas
-1. Interpretação, contexto e levantamento de requisitos para o domínio do problema;
+1. __Interpretação, contexto e levantamento de requisitos para o domínio do problema__
     1. Criação de ostras, a temperatura do mar é algo crítico.
     1. Broker MQTT? https://engprocess.com.br/mqtt-broker/ , razoalvemente e em alto nível um sistema de publish-subscriber para notificações.
     1. Separar a fazenda de ostras por (filtros): nome, data, temp, localidade, owner.
-1. Mapeamento do domínio do problema para um MER.
+1. __Mapeamento do domínio do problema para um MER.__
     1. ![Mapeamento Conceitual](images/modelo-conceitual.png)
     1. ![Mapemaneto Lógico](images/modelo-logico.png)
-1. Desenvolvimento da aplicação
+1. __Desenvolvimento da aplicação__
+1. __Testes__
+1. __Deploy__
 
 ## Respostas
 1. __Código:__ _OBS: Supondo que bd seja uma função nativa para manipular o banco de dados, supondo que findData é uma função nativa para localizar data em uma string e supondo que a função sendSMS envia um SMS para o número (primeiro paramentro) e a mensagem (segundo parametro)._
 ```python
-# Conecta BD e executa query
+# Conecta BD e executa query.
 def getBD(query):
     try:
         connection = bd.connect()
@@ -24,12 +26,12 @@ def getBD(query):
     except (Exception, error) as error:
         print(Error)
 
-# Insere os dados coletados para o BD
+# Insere os dados coletados para o BD.
 def insertBD(idFazenda, data, temperatura):
     query = "INSERT INTO Historico (idFazenda, data, temperatura) VALUES (idFazenda, data, temperatura)"
     return getBD(query)
         
-# Recebe Alertas do broker MQTT (dispositivo IoT)
+# Recebe Alertas do broker MQTT (dispositivo IoT).
 def recebeAlertas(data, temperatura, idFazenda):
     result = insertBD(idFazenda, data, temperatura)
     if result is null:
@@ -41,7 +43,7 @@ def recebeAlertas(data, temperatura, idFazenda):
     else:
         publish(idFazenda, '[NORMAL] Temperatura mensurada '+tempetura+'°C')
 
-# Envia Alerta ao proprietário por SMS e Publica         
+# Envia Alerta ao proprietário por SMS e publica no arquivo.        
 def sendAlert(string, idFazenda):
     findOwner = getBD('SELECT idPessoa FROM Fazenda where id = '+idFazenda)
     query = 'SELECT a.nome, a.telefone FROM Pessoas as a WHERE a.CPF = '+findOwner+'"'
@@ -49,18 +51,18 @@ def sendAlert(string, idFazenda):
     sendSMS = (result[1],'Olá Sr. '+result[0]+'A fazenda'+idFazenda+' está com o seguinte alerta: '+string)
     publish(idFazenda, string)
 
-# Publica o alerta em um arquivo monitorado
+# Publica o alerta em um arquivo monitorado.
 def publish(idFazenda, string):
     os.system('echo idFazenda+" "+string >> file')
 
-# Monitora o arquivo
+# Monitora o arquivo.
 def monitora(idFazenda, last):
     lastLine = os.system("awk '/./{line=$0} END{print line}' file")
     if idFazenda is in lastLine:
         if findData(lastLine) > data(last):
             raise(Atualização)
 
-# Acessa historico
+# Acessa a tabela historico e retorna os dados conforme o filtro aplicado.
 def historico(idFazenda, nome, data, temperatura, localidade, idPessoa)
     query = "SELECT a.nome,a.localidade,b.data,b.temperatura,c.idPessoa FROM Fazenda as a, Historico as b, Pessoa as c WHERE a.id = b.idFazenda and a.idPessoa = c.CPF"
     if idFazenda is not None: query + " and a.idFazenda = "+ idFazenda
@@ -85,8 +87,8 @@ __Descrição__:
 *: Diversas estratégias podem ser adotadas, como timestamps sobre o protocolo HTTP, ou até mesmo um FTP, etc. Para que ao verificar uma mudança ele baixe o novo arquivo. 
 
 3. __Tecnologias e Motivação__  
-__R:__ Possivelmente para esta solução adotaria uma linguaguem dinamicamente tipada como Python, pois a curva de desenvolvimento seria rápida e um código de fácil manutenção/leitura.  
-Como storage. utilizaria um banco de dados relacional (PostgreSQL) visto que o domínio do problema não implica em soluções Big Data. Ainda observando que o fato da temperatura é um dado vital (>31°C) e implicaria em um grande prejuizo, sendo assim, as propriedades ACID evitaria possíveis dados perdidos. 
+__R:__ Possivelmente para esta solução adotaria uma linguaguem dinamicamente tipada como __Python__, pois a curva de desenvolvimento seria rápida e um código de fácil manutenção/leitura.  
+Como storage. utilizaria um banco de dados relacional (__PostgreSQL__) visto que o domínio do problema não implica em soluções Big Data. Ainda observando que o fato da temperatura é um dado vital (>31°C) e implicaria em um grande prejuizo, sendo assim, as propriedades ACID evitaria possíveis dados perdidos. 
 
 4. __Ferramentas utilizadas__
-Para desenvolvimento deste documento foi utilizado o editor de textos __Pluma__, para os modelos conceituais e lógicos foi utilizado a ferramenta __brMoelo__, para o diagrama de fluxo do programa foi utilizado o website __draw.io__.
+Para desenvolvimento deste documento foi utilizado o editor de textos __Pluma__, para os modelos conceituais e lógicos foi utilizado a ferramenta __brModelo__, para o diagrama de fluxo do programa foi utilizado o website __draw.io__.
