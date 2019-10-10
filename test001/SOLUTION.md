@@ -9,3 +9,4 @@
 1. Mapeamento do domínio do problema para um MER.
     1. ![Mapeamento Conceitual](images/modelo-conceitual.png)
     1. ![Mapemaneto Lógico](images/modelo-logico.png)
+    
