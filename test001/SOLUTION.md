@@ -12,7 +12,7 @@
 1. Desenvolvimento da aplicação
 
 ## Respostas
-1. Código
+1. Código: __OBS__: Supondo que bd seja uma função nativa para manipular o banco de dados, supondo que findData é uma função nativa para localizar data em uma string e supondo que a função sendSMS envia um SMS para o número (primeiro paramentro) e a mensagem (segundo parametro)
 ```python
 # Conecta BD e executa query
 def getBD(query):
@@ -33,7 +33,7 @@ def insertBD(idFazenda, data, temperatura):
 def recebeAlertas(data, temperatura, idFazenda):
     result = insertBD(idFazenda, data, temperatura)
     if result is null:
-        raiseException("Error")
+        raiseException("Error, dado não inserido no BD")
     if(temp > 22):
         sendAlert('[CRITÍCO] Temperatura acima de 22°C, STRESS ostras', idFazenda)
     elif(temp > 31):
@@ -43,19 +43,19 @@ def recebeAlertas(data, temperatura, idFazenda):
 
 # Envia Alerta ao proprietário por SMS e Publica         
 def sendAlert(string, idFazenda):
-    findOwner = getBd("SELECT idPessoa FROM Fazenda where id = idFazenda")
-    query = "SELECT a.nome, a.telefone FROM Pessoas as a WHERE CPF = findOwner"
+    findOwner = getBD("SELECT idPessoa FROM Fazenda where id = idFazenda")
+    query = "SELECT a.nome, a.telefone FROM Pessoas as a WHERE a.CPF = "+findOwner+'"'
     result = getBD(query)
     sendSMS = (result[1],""Olá Sr. "+result[0]+"A fazenda"+idFazenda+" está com o seguinte alerta: "+string")
     publish(idFazenda, string)
 
 # Publica o alerta em um arquivo monitorado
 def publish(idFazenda, string):
-    idFazenda+" "+string >> file
+    os.system(echo idFazenda+" "+string >> file)
 
 # Monitora o arquivo
 def monitora(idFazenda, last):
-    lastLine = awk '/./{line=$0} END{print line}' file
+    lastLine = os.system("awk '/./{line=$0} END{print line}' file")
     if idFazenda is in lastLine:
         if findData(lastLine) > data(last):
             raise(Atualização)
@@ -63,12 +63,12 @@ def monitora(idFazenda, last):
 # Acessa historico
 def historico(idFazenda, nome, data, temperatura, localidade, idPessoa)
     query = "SELECT a.nome,a.localidade,b.data,b.temperatura,c.idPessoa FROM Fazenda as a, Historico as b, Pessoa as c WHERE a.id = b.idFazenda and a.idPessoa = c.CPF"
-    if idFazenda is not null: query + " and a.idFazenda = "+ idFazenda
-    if nome is not null: query + " and a.nome = "+ nome
-    if data is not null: query + " and b.data = "+ data
-    if temperatura is not null: query + " and b.temperatura = "+ temperatura
-    if localidade is not null: query + " and a.localidade = "+ localidade
-    if idPessoa is not null: query + " and c.CPF = "+ idPessoa
+    if idFazenda is not None: query + " and a.idFazenda = "+ idFazenda
+    if nome is not None: query + " and a.nome = "+ nome
+    if data is not None: query + " and b.data = "+ data
+    if temperatura is not None: query + " and b.temperatura = "+ temperatura
+    if localidade is not None: query + " and a.localidade = "+ localidade
+    if idPessoa is not None: query + " and c.CPF = "+ idPessoa
     print getBD(query)
 ```
 
