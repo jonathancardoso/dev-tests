@@ -12,7 +12,7 @@
 1. Desenvolvimento da aplicação
 
 ## Respostas
-1. Código: __OBS__: Supondo que bd seja uma função nativa para manipular o banco de dados, supondo que findData é uma função nativa para localizar data em uma string e supondo que a função sendSMS envia um SMS para o número (primeiro paramentro) e a mensagem (segundo parametro)
+1. __Código:__ _OBS_: Supondo que bd seja uma função nativa para manipular o banco de dados, supondo que findData é uma função nativa para localizar data em uma string e supondo que a função sendSMS envia um SMS para o número (primeiro paramentro) e a mensagem (segundo parametro).
 ```python
 # Conecta BD e executa query
 def getBD(query):
@@ -43,15 +43,15 @@ def recebeAlertas(data, temperatura, idFazenda):
 
 # Envia Alerta ao proprietário por SMS e Publica         
 def sendAlert(string, idFazenda):
-    findOwner = getBD("SELECT idPessoa FROM Fazenda where id = idFazenda")
-    query = "SELECT a.nome, a.telefone FROM Pessoas as a WHERE a.CPF = "+findOwner+'"'
+    findOwner = getBD('SELECT idPessoa FROM Fazenda where id = '+idFazenda)
+    query = 'SELECT a.nome, a.telefone FROM Pessoas as a WHERE a.CPF = '+findOwner+'"'
     result = getBD(query)
-    sendSMS = (result[1],""Olá Sr. "+result[0]+"A fazenda"+idFazenda+" está com o seguinte alerta: "+string")
+    sendSMS = (result[1],'Olá Sr. '+result[0]+'A fazenda'+idFazenda+' está com o seguinte alerta: '+string)
     publish(idFazenda, string)
 
 # Publica o alerta em um arquivo monitorado
 def publish(idFazenda, string):
-    os.system(echo idFazenda+" "+string >> file)
+    os.system('echo idFazenda+" "+string >> file')
 
 # Monitora o arquivo
 def monitora(idFazenda, last):
@@ -72,7 +72,7 @@ def historico(idFazenda, nome, data, temperatura, localidade, idPessoa)
     print getBD(query)
 ```
 
-2. Diagramas de fluxo da aplicação
+2. __Diagramas de fluxo da aplicação__
 
-3. Tecnologias e motivação.
+3. __Tecnologias e motivação__
 R: Possivelmente para esta solução adotaria uma linguaguem dinamicamente tipada como Python, pois a curva de desenvolvimento seria rápida. Para as consultas  utilizaria um banco de dados relacional PostgreSQL visto que o domínio do problema não implica em soluções Big Data, ainda observando que o fato da temperatura é um dado vital (>31°C) e implicaria em um grande prejuizo, as propriedades ACID são necessárias.
