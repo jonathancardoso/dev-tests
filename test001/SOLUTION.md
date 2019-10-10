@@ -12,7 +12,7 @@
 1. Desenvolvimento da aplicação
 
 ## Respostas
-1. __Código:__ _OBS_: Supondo que bd seja uma função nativa para manipular o banco de dados, supondo que findData é uma função nativa para localizar data em uma string e supondo que a função sendSMS envia um SMS para o número (primeiro paramentro) e a mensagem (segundo parametro).
+1. __Código:__ _OBS: Supondo que bd seja uma função nativa para manipular o banco de dados, supondo que findData é uma função nativa para localizar data em uma string e supondo que a função sendSMS envia um SMS para o número (primeiro paramentro) e a mensagem (segundo parametro)._
 ```python
 # Conecta BD e executa query
 def getBD(query):
@@ -73,6 +73,10 @@ def historico(idFazenda, nome, data, temperatura, localidade, idPessoa)
 ```
 
 2. __Diagramas de fluxo da aplicação__
+![Diagram de Fluxo do programa](images/Diagrama-Fluxo.png)
+
+
 
 3. __Tecnologias e motivação__
-R: Possivelmente para esta solução adotaria uma linguaguem dinamicamente tipada como Python, pois a curva de desenvolvimento seria rápida. Para as consultas  utilizaria um banco de dados relacional PostgreSQL visto que o domínio do problema não implica em soluções Big Data, ainda observando que o fato da temperatura é um dado vital (>31°C) e implicaria em um grande prejuizo, as propriedades ACID são necessárias.
+R: Possivelmente para esta solução adotaria uma linguaguem dinamicamente tipada como Python, pois a curva de desenvolvimento seria rápida.  
+Para as consultas  utilizaria um banco de dados relacional PostgreSQL visto que o domínio do problema não implica em soluções Big Data, ainda observando que o fato da temperatura é um dado vital (>31°C) e implicaria em um grande prejuizo, as propriedades ACID são necessárias.  
