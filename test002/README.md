@@ -31,17 +31,16 @@ Para executar essa aplicação, certifique-se que você possui todos as bibliote
 pip install -r requirements.txt
 ```
 Para iniciar a aplicação, é necessário realizar o setup de inicialização para gerar o banco de dados.
-```
-make setup
-``` ou python tabledef.py; python dummy.py
+``` make setup ``` ou simplesmente ``` python tabledef.py; python dummy.py ```
 
 ### Execução
-Para executar a aplicação é necessário __python app.py__ e após __python browser.py__.
+Para executar a aplicação é necessário inicializar os serviços ```__python app.py__``` e após ```__python browser.py__``` para visualizar a aplicação.
 
 ### Informações
 Os serviços requeridos no item 1 deste desafio estão desenvolvidos em __controller.py__.
 O arquivo __app.py__ é responsavél pelo roteamento das URL's e a view da aplicação.
 Para contemplar as necessidades descritas no item 2 deste desafio, foi implementado em __browser.py__ as funções para visualização da aplicação e integração ao desktop.
 
-
-
+1. Para limpar os arquivos enviados ao servidor: ```make cleanData```
+1. Para limpar o banco de dados: ```make cleanDB```
+1. Para resetar a aplicação ao estado inicial: ```make clean```
